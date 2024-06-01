@@ -2,7 +2,6 @@ require("noice").setup({
 	cmdline = {
 		enabled = true, -- enables the Noice cmdline UI
 		view = "cmdline_popup", -- view for rendering the cmdline. Change to `cmdline` to get a classic cmdline at the bottom
-		---@type table<string, CmdlineFormat>
 		format = {
 			-- conceal: (default=true) This will hide the text in the cmdline that matches the pattern.
 			-- view: (default is cmdline view)
@@ -33,19 +32,16 @@ require("noice").setup({
 		enabled = true, -- enables the Noice popupmenu UI
 		---@type 'nui'|'cmp'
 		backend = "nui", -- backend to use to show regular cmdline completions
-		---@type NoicePopupmenuItemKind|false
 		-- Icons for completion item kinds (see defaults at noice.config.icons.kinds)
 		kind_icons = {}, -- set to `false` to disable icons
 	},
 	-- default options for require('noice').redirect
 	-- see the section on Command Redirection
-	---@type NoiceRouteConfig
 	redirect = {
 		view = "popup",
 		filter = { event = "msg_show" },
 	},
 	-- You can add any custom commands below that will be available with `:Noice command`
-	---@type table<string, NoiceCommand>
 	commands = {
 		history = {
 			-- options for the message history that you get with `:Noice`

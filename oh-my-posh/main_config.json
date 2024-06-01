@@ -1,0 +1,119 @@
+{
+	"$schema": "https://raw.githubusercontent.com/JanDeDobbeleer/oh-my-posh/main/themes/schema.json",
+	"blocks": [
+		{
+			"alignment": "left",
+			"segments": [
+				{
+					"foreground": "white",
+					"properties": {
+						"fetch_version": false
+					},
+					"style": "plain",
+					"template": "({{ if .Error }}{{ .Error }}{{ else }}{{ if .Venv }}{{ .Venv }} {{ end }}{{ .Full }}{{ end }})",
+					"type": "python"
+				}
+			],
+			"type": "prompt"
+		},
+		{
+			"type": "prompt",
+			"alignment": "left",
+			"newline": true,
+			"segments": [
+				{
+					"type": "text",
+					"template": "\n"
+				},
+				{
+					"foreground": "darkGray",
+					"style": "plain",
+					"template": "<red> </> ",
+					"type": "root"
+				},
+				{
+					"style": "plain",
+					"template": "<blue> {{ .UserName }}</> ",
+					"type": "session"
+				},
+				{
+					"foreground": "darkGray",
+					"type": "path",
+					"style": "plain",
+					"template": "<lightYellow>{{ .Path }}{{ if not .Writable }}<red> </>{{end}}</> ",
+					"properties": {
+						"style": "unique",
+						"max_depth": 2,
+						"folder_separator_icon": "/",
+						"home_icon": "  ~"
+					}
+				},
+				{
+					"style": "plain",
+					"template": "<cyan>  {{ .HEAD }}</>{{ if .Working.Changed }}<red> </> {{ else }}<green> 󰄬</>{{ .Working.String }}{{ end }}{{ if and (.Staging.Changed) (.Working.Changed) }}|{{ end }}{{ if .Staging.Changed }}<green>  </>{{ .Staging.String }}{{ end }}",
+					"type": "git",
+					"properties": {
+						"fetch_status": true,
+						"branch_icon": " "
+					}
+				}
+			]
+		},
+		{
+			"type": "prompt",
+			"alignment": "right",
+			"segments": [
+				{
+					"type": "executiontime",
+					"style": "plain",
+					"foreground": "darkGray",
+					"template": "<yellow> {{ .FormattedMs }}</>",
+					"properties": {
+						"style": "round",
+						"threshold": 500
+					}
+				},
+				{
+					"type": "time",
+					"foreground": "darkGray",
+					"style": "plain",
+					"template": " <lightMagenta>  {{ .CurrentDate | date .Format }}</>",
+					"properties": {
+						"time_format": "3:04 PM"
+					}
+				}
+			]
+		},
+		{
+			"alignment": "left",
+			"newline": true,
+			"segments": [
+				{
+					"foreground": "lightGreen",
+					"style": "plain",
+					"template": "<lightBlue>$ </>{{ if eq .Code 0 }}{{ else }}<lightRed></>{{ end }}",
+					"type": "text"
+				}
+			],
+			"type": "prompt"
+		},
+		{
+			"type": "rprompt",
+			"alignment": "right",
+			"segments": [
+				{
+					"type": "command",
+					"style": "plain",
+					"foreground": "darkGray",
+					"template": " <green> {{ .Output }}</> ",
+					"properties": {
+						"shell": "zsh",
+						"command": "source ~/prev_zsh_cmd.zsh"
+					}
+				}
+			]
+		}
+	],
+	"final_space": true,
+	"version": 2
+}

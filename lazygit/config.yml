@@ -1,0 +1,52 @@
+git:
+  paging:
+    colorArg: always
+    pager: delta --dark --paging=never
+
+  branchLogCmd: "git lg {{branchName}} -- "
+  allBranchesLogCmd: "git lga"
+
+gui:
+  # Use the mocha catppuccin theme
+  nerdFontsVersion : "3"
+  theme:
+    activeBorderColor:
+      - '#a6e3a1'
+      - bold
+    inactiveBorderColor:
+      - '#a6adc8'
+    optionsTextColor:
+      - '#89b4fa'
+    selectedLineBgColor:
+      - '#282c34'
+    cherryPickedCommitBgColor:
+      - '#45475a'
+    cherryPickedCommitFgColor:
+      - '#a6e3a1'
+    unstagedChangesColor:
+      - '#f38ba8'
+    defaultFgColor:
+      - '#cdd6f4'
+    searchingActiveBorderColor:
+      - '#f9e2af'
+
+  authorColors:
+    'Hrigved': 'blue'
+
+  branchColors:
+    'main': 'cyan'
+    'random': 'yellow'
+
+  statusPanelView: allBranchesLog
+
+keybinding:
+  universal:
+    undo: 'u'
+    redo: '<c-r>'
+    quit: '<c-q>'
+    openRecentRepos: '<c-o>'
+    copyToClipboard: '<c-y>'
+  commits:
+    moveDownCommit: '<c-p>'
+    moveUpCommit: '<c-n>'
+    openLogMenu: '<disabled>'

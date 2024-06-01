@@ -4,8 +4,10 @@
 
 ### Some of my NeoVim magic
 
-![Neotree](/home/hrigved/Pictures/Screenshots/ScreenshotNeotree.png)
-![Alpha](/home/hrigved/Pictures/Screenshots/ScreenshotAlpha.png)
-![Neovim](/home/hrigved/Pictures/Screenshots/ScreenshotNeovim.png)
+![Neotree](./assets/ScreenshotNeotree.png)
 
-#### Note: My terminal (WindowsTerminal) background is transparent
+![Alpha](./assets/ScreenshotAlpha.png)
+
+![Neovim](./assets/ScreenshotNeovim.png)
+
+##### Note: My terminal (WindowsTerminal) background is transparent

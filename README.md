@@ -1,3 +1,3 @@
-### Welcome to my dotfiles
+# Welcome to my dotfiles
 
-##### Here, you will see all my configs at one place 😊
+#### Here, you will see all my configs at one place 😊

@@ -44,7 +44,7 @@ require("neo-tree").setup({
 			enable_character_fade = true,
 		},
 		indent = {
-			indent_size = 3,
+			indent_size = 2,
 			padding = 1, -- extra padding on left hand side
 			-- indent guides
 			with_markers = true,
@@ -67,7 +67,7 @@ require("neo-tree").setup({
 			highlight = "NeoTreeFileIcon",
 		},
 		modified = {
-			symbol = "[+]",
+			symbol = "+",
 			highlight = "NeoTreeModified",
 		},
 		name = {
@@ -143,9 +143,9 @@ require("neo-tree").setup({
 			-- ["t"] = "open_tab_drop",
 			["w"] = "open_with_window_picker",
 			--["P"] = "toggle_preview", -- enter preview mode, which shows the current node without focusing
-			["C"] = "close_node",
+			["z"] = "close_node",
 			-- ['C'] = 'close_all_subnodes',
-			["z"] = "close_all_nodes",
+			["Z"] = "close_all_nodes",
 			--["Z"] = "expand_all_nodes",
 			["a"] = {
 				"add",

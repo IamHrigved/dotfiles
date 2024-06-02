@@ -9,7 +9,7 @@ require('gitsigns').setup {
 		untracked    = { text = '┆' }, -- ┆
 	},
 	signcolumn                        = true, -- Toggle with `:Gitsigns toggle_signs`
-	numhl                             = true, -- Toggle with `:Gitsigns toggle_numhl`
+	numhl                             = false, -- Toggle with `:Gitsigns toggle_numhl`
 	linehl                            = false, -- Toggle with `:Gitsigns toggle_linehl`
 	word_diff                         = false, -- Toggle with `:Gitsigns toggle_word_diff`
 	watch_gitdir                      = {
@@ -29,7 +29,7 @@ require('gitsigns').setup {
 	current_line_blame_formatter_opts = {
 		relative_time = false,
 	},
-	sign_priority                     = 13, -- NEVER CHANGE see lsp_config.lua
+	sign_priority                     = 12, -- NEVER CHANGE see lsp_config.lua
 	update_debounce                   = 100,
 	status_formatter                  = nil, -- Use default
 	max_file_length                   = 40000, -- Disable if file is longer than this (in lines)

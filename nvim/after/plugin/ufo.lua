@@ -22,7 +22,6 @@ require("statuscol").setup({
 		},
 		{
 			text = { builtin.lnumfunc, " " },
-			condition = { true, builtin.not_empty },
 			click = "v:lua.ScLa",
 		},
 	},

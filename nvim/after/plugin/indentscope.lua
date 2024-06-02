@@ -9,7 +9,7 @@ require("mini.indentscope").setup({ -- No need to copy this inside `setup()`. Wi
 		-- next and total step numbers, returns wait time (in ms). See
 		-- |MiniIndentscope.gen_animation| for builtin options. To disable
 		-- animation, use `require('mini.indentscope').gen_animation.none()`.
-		animation = require('mini.indentscope').gen_animation.quadratic({ easing = "in-out", duration = 15 }), -- <function: implements constant 20ms between steps>
+		animation = require("mini.indentscope").gen_animation.quadratic({ easing = "in-out", duration = 15 }), -- <function: implements constant 20ms between steps>
 
 		-- Symbol priority. Increase to display on top of more symbols.
 		priority = 40,
@@ -17,19 +17,19 @@ require("mini.indentscope").setup({ -- No need to copy this inside `setup()`. Wi
 	-- Module mappings. Use `''` (empty string) to disable one.
 	mappings = {
 		-- Textobjects
-		object_scope = 'ii',
-		object_scope_with_border = 'ai',
+		object_scope = "ii",
+		object_scope_with_border = "ai",
 
 		-- Motions (jump to respective border line; if not present - body line)
-		goto_top = '[i',
-		goto_bottom = ']i',
+		goto_top = "[i",
+		goto_bottom = "]i",
 	},
 
 	-- Options which control scope computation
 	options = {
 		-- Type of scope's border: which line(s) with smaller indent to
 		-- categorize as border. Can be one of: 'both', 'top', 'bottom', 'none'.
-		border = 'both',
+		border = "both",
 
 		-- Whether to use cursor column when computing reference indent.
 		-- Useful to see incremental scopes with horizontal cursor movements.
@@ -42,8 +42,8 @@ require("mini.indentscope").setup({ -- No need to copy this inside `setup()`. Wi
 	},
 
 	-- Which character to use for drawing scope indicator
-	symbol = '▎',
+	symbol = "▎",
 })
 
-vim.cmd("hi! link MiniIndentscopeSymbol DiagnosticOk")
+vim.cmd("hi! link MiniIndentscopeSymbol TSRainBowGreen")
 vim.cmd("hi! link MiniIndentscopeSymbolOff DiagnosticError")

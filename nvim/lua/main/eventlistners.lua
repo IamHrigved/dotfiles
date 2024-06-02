@@ -4,35 +4,35 @@ vim.api.nvim_create_autocmd("BufWritePre", {
 	pattern = "*",
 	callback = function(args)
 		require("conform").format({ bufnr = args.buf })
-	end
+	end,
 })
 
 -- Highlight the text when yanking
-vim.api.nvim_create_autocmd('TextYankPost', {
-	desc = 'Highlight when yanking (copying) text',
+vim.api.nvim_create_autocmd("TextYankPost", {
+	desc = "Highlight when yanking (copying) text",
 	callback = function()
 		vim.highlight.on_yank()
 	end,
 })
 
-vim.api.nvim_create_autocmd('User', {
-	pattern = 'AlphaReady',
-	desc = 'Disable statusline in startup screen',
+vim.api.nvim_create_autocmd("User", {
+	pattern = "AlphaReady",
+	desc = "Disable statusline in startup screen",
 	callback = function()
 		vim.go.laststatus = 0
-	end
+	end,
 })
 
-vim.api.nvim_create_autocmd('BufUnload', {
+vim.api.nvim_create_autocmd("BufUnload", {
 	buffer = 0,
 	-- pattern = 'AlphaClosed',
-	desc = 'Enable statusline after startup screen',
+	desc = "Enable statusline after startup screen",
 	callback = function()
 		vim.go.laststatus = 2
-	end
+	end,
 })
 
-vim.api.nvim_create_autocmd('BufEnter', {
+vim.api.nvim_create_autocmd("BufEnter", {
 	desc = "Changing the name of ToggleTerm when we enter it",
 	callback = function()
 		vim.schedule(function()
@@ -40,29 +40,29 @@ vim.api.nvim_create_autocmd('BufEnter', {
 				vim.cmd("file Terminal | startinsert")
 			end
 		end)
-	end
+	end,
 })
 
-vim.api.nvim_create_autocmd('BufEnter', {
+vim.api.nvim_create_autocmd("BufEnter", {
 	desc = "Disabling Windows plugin when entering a trouble window",
 	callback = function()
 		vim.schedule(function()
-			if vim.o.filetype == 'trouble' then
+			if vim.o.filetype == "trouble" then
 				vim.cmd("WindowsDisableAutowidth")
 			end
 		end)
-	end
+	end,
 })
 
-vim.api.nvim_create_autocmd('BufLeave', {
+vim.api.nvim_create_autocmd("BufLeave", {
 	desc = "Enabling Windows plugin when leaving a trouble window",
 	callback = function()
 		vim.schedule(function()
-			if vim.o.filetype == 'trouble' then
+			if vim.o.filetype == "trouble" then
 				vim.cmd("WindowsEnableAutowidth")
 			end
 		end)
-	end
+	end,
 })
 
 -- vim.api.nvim_create_autocmd('FileType', {
@@ -76,7 +76,9 @@ vim.api.nvim_create_autocmd('BufLeave', {
 local get_icon_hl = function()
 	local filename = vim.fn.expand("%:t")
 	local _, color = require("nvim-web-devicons").get_icon_color(filename)
-	if color == nil then return "" end
+	if color == nil then
+		return ""
+	end
 	local hlcmd = "hi! BufferLineIndicatorSelected guifg=" .. color
 	return hlcmd
 end
@@ -85,5 +87,5 @@ vim.api.nvim_create_autocmd("BufEnter", {
 	desc = "Changing the BufferLineIndicatorSelected highlight according to the color of icon",
 	callback = function()
 		vim.cmd(get_icon_hl())
-	end
+	end,
 })

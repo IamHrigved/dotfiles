@@ -1,13 +1,13 @@
 local signs = { error = " ", warn = " ", hint = "󰌵 ", info = " " }
 
-require('lualine').setup {
+require("lualine").setup({
 	options = {
 		icons_enabled = true,
-		theme = 'auto',
-		component_separators = { left = '', right = '' }, --  
-		section_separators = { left = '', right = '' },
+		theme = "auto",
+		component_separators = { left = "", right = "" }, --  
+		section_separators = { left = "", right = "" },
 		disabled_filetypes = {
-			statusline = { 'neo-tree' },
+			statusline = { "neo-tree" },
 			winbar = {},
 		},
 		ignore_focus = {},
@@ -17,12 +17,12 @@ require('lualine').setup {
 			statusline = 1000,
 			tabline = 1000,
 			winbar = 1000,
-		}
+		},
 	},
 	sections = {
-		lualine_a = { 'mode' },
+		lualine_a = { "mode" },
 		lualine_b = {
-			'filename',
+			"filename",
 			-- {
 			-- 	'diagnostics',
 			-- 	diagnostics_colors = {
@@ -36,8 +36,9 @@ require('lualine').setup {
 			-- }
 		},
 		lualine_c = {
-			'filetype',
-			'branch', 'diff',
+			"filetype",
+			"branch",
+			"diff",
 		},
 		lualine_x = {
 			{
@@ -50,21 +51,29 @@ require('lualine').setup {
 				cond = require("noice").api.status.command.has,
 				color = { fg = "#ff9e64" },
 			},
-			'encoding'
+			"encoding",
 		},
-		lualine_y = { 'fileformat', 'progress' },
-		lualine_z = { 'location' }
+		lualine_y = { "fileformat", "progress" },
+		lualine_z = { "location" },
 	},
 	inactive_sections = {
 		lualine_a = {},
-		lualine_b = { 'filename' },
-		lualine_c = { 'filetype' },
+		lualine_b = { "filename" },
+		lualine_c = { "filetype" },
 		lualine_x = {},
-		lualine_y = { 'progress', 'location' },
-		lualine_z = {}
+		lualine_y = { "progress", "location" },
+		lualine_z = {},
 	},
 	tabline = {},
 	winbar = {},
 	inactive_winbar = {},
-	extensions = {}
-}
+	extensions = {},
+})
+
+local old_is_focused = require("lualine.utils.utils").is_focused
+require("lualine.utils.utils").is_focused = function()
+	if _G.ForceLualineFocusLost ~= nil then
+		return not _G.ForceLualineFocusLost
+	end
+	return old_is_focused()
+end

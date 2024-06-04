@@ -271,9 +271,7 @@ require("noice").setup({
 			view = "split",
 		},
 	}, --- @see section on routes
-	---@type table<string, NoiceFilter>
 	status = {}, --- @see section on statusline components
-	---@type NoiceFormatOptions
 	format = {}, --- @see section on formatting
 })
 
@@ -283,3 +281,6 @@ require("notify").setup({
 
 vim.keymap.set("n", "<leader>no", "<cmd>Noice<CR>")
 vim.keymap.set("n", "<leader>na", "<cmd>Noice all <CR>")
+vim.keymap.set("n", "<leader>nq", function()
+	require("notify").dismiss({ silent = true, pending = true })
+end)

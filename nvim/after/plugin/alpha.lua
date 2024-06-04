@@ -1,6 +1,6 @@
-local alpha = require('alpha')
-local dashboard = require('alpha.themes.dashboard')
-local lazy = require('lazy')
+local alpha = require("alpha")
+local dashboard = require("alpha.themes.dashboard")
+local lazy = require("lazy")
 
 dashboard.section.buttons.val = {
 	dashboard.button("e", "󰈔   New file", ":ene <BAR> startinsert <CR>"),

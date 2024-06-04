@@ -127,9 +127,13 @@ local plugins = {
 	-- [[ General Purpose: ]] --
 
 	{
-		"tpope/vim-surround",
-		version = "main", -- Use for stability; omit to use `main` branch for the latest features
+		"kylechui/nvim-surround",
+		version = "main",
+		config = function()
+			require("nvim-surround").setup()
+		end,
 	},
+
 	{
 		"akinsho/bufferline.nvim",
 		version = "*",
@@ -164,7 +168,7 @@ local plugins = {
 	},
 	{
 		"folke/trouble.nvim",
-		branch = "dev",
+		branch = "main",
 		-- dependencies = { "nvim-tree/nvim-web-devicons" },
 		opts = {},
 	},

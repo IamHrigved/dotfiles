@@ -69,9 +69,6 @@ vim.cmd("hi! Folded guibg=#1d2a41")
 require("ufo").setup({
 	open_fold_hl_timeout = 200,
 	fold_virt_text_handler = foldVirtualText,
-	provider_selector = function(bufnr, filetype, buftype)
-		return { "treesitter", "indent" }
-	end,
 	preview = {
 		win_config = {
 			border = "rounded",

@@ -21,9 +21,15 @@ vim.api.nvim_create_autocmd("LspAttach", {
 		vim.keymap.set("n", "go", "<cmd>lua vim.lsp.buf.type_definition()<cr>", opts)
 		-- vim.keymap.set('n', 'gr', '<cmd>lua vim.lsp.buf.references()<cr>', opts) in telescope.lua
 		vim.keymap.set("n", "gh", "<cmd>lua vim.lsp.buf.signature_help()<cr>", opts)
-		vim.keymap.set("n", "<F2>", "<cmd>lua vim.lsp.buf.rename()<cr>", opts)
+		vim.keymap.set("n", "<leader>rn", "<cmd>lua vim.lsp.buf.rename()<cr>", opts)
 		vim.keymap.set({ "n", "x" }, "<leader>fm", require("conform").format, opts)
 		vim.keymap.set("n", "<leader>ca", "<cmd>lua vim.lsp.buf.code_action()<cr>", opts)
+		vim.keymap.set(
+			"n",
+			"<leader>ih",
+			"<cmd>lua vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled())<cr>",
+			opts
+		)
 	end,
 })
 
@@ -61,8 +67,14 @@ vim.diagnostic.config({
 
 -- default capabilities and on_attatch functions:
 local lsp_capabilities = require("cmp_nvim_lsp").default_capabilities()
+lsp_capabilities.textDocument.foldingRange = {
+	dynamicRegistration = false,
+	lineFoldingOnly = true,
+}
+
 local default_on_attach = function(client, bufnr)
 	print("Welcome to " .. vim.bo.filetype .. " programing!")
+	vim.lsp.inlay_hint.enable(false, { bufnr = bufnr })
 	if client.server_capabilities.documentSymbolProvider then
 		require("nvim-navic").attach(client, bufnr)
 	end
@@ -83,3 +95,12 @@ end
 -- configuring all lsp's
 default_setup("lua_ls", {})
 default_setup("marksman", {})
+default_setup("rust_analyzer", {
+	settings = {
+		["rust-analyzer"] = {
+			cargo = {
+				allFeatures = true,
+			},
+		},
+	},
+})

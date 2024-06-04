@@ -45,5 +45,5 @@ require("mini.indentscope").setup({ -- No need to copy this inside `setup()`. Wi
 	symbol = "▎",
 })
 
-vim.cmd("hi! link MiniIndentscopeSymbol TSRainBowGreen")
+vim.cmd("hi! link MiniIndentscopeSymbol TSRainbowCyan")
 vim.cmd("hi! link MiniIndentscopeSymbolOff DiagnosticError")

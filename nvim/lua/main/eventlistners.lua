@@ -1,5 +1,11 @@
+--
+local function autocmd(events, opts)
+	vim.api.nvim_create_autocmd(events, opts)
+end
+
+--
 -- Formatting on file save
-vim.api.nvim_create_autocmd("BufWritePre", {
+autocmd("BufWritePre", {
 	desc = "Formatting on file save",
 	pattern = "*",
 	callback = function(args)
@@ -8,14 +14,14 @@ vim.api.nvim_create_autocmd("BufWritePre", {
 })
 
 -- Highlight the text when yanking
-vim.api.nvim_create_autocmd("TextYankPost", {
+autocmd("TextYankPost", {
 	desc = "Highlight when yanking (copying) text",
 	callback = function()
 		vim.highlight.on_yank()
 	end,
 })
 
-vim.api.nvim_create_autocmd("User", {
+autocmd("User", {
 	pattern = "AlphaReady",
 	desc = "Disable statusline in startup screen",
 	callback = function()
@@ -23,7 +29,7 @@ vim.api.nvim_create_autocmd("User", {
 	end,
 })
 
-vim.api.nvim_create_autocmd("BufUnload", {
+autocmd("BufUnload", {
 	buffer = 0,
 	-- pattern = 'AlphaClosed',
 	desc = "Enable statusline after startup screen",
@@ -32,7 +38,7 @@ vim.api.nvim_create_autocmd("BufUnload", {
 	end,
 })
 
-vim.api.nvim_create_autocmd("BufEnter", {
+autocmd("BufEnter", {
 	desc = "Changing the name of ToggleTerm when we enter it",
 	callback = function()
 		vim.schedule(function()
@@ -43,7 +49,7 @@ vim.api.nvim_create_autocmd("BufEnter", {
 	end,
 })
 
-vim.api.nvim_create_autocmd("BufEnter", {
+autocmd("BufEnter", {
 	desc = "Disabling Windows plugin when entering a trouble window",
 	callback = function()
 		vim.schedule(function()
@@ -54,7 +60,7 @@ vim.api.nvim_create_autocmd("BufEnter", {
 	end,
 })
 
-vim.api.nvim_create_autocmd("BufLeave", {
+autocmd("BufLeave", {
 	desc = "Enabling Windows plugin when leaving a trouble window",
 	callback = function()
 		vim.schedule(function()
@@ -83,9 +89,49 @@ local get_icon_hl = function()
 	return hlcmd
 end
 
-vim.api.nvim_create_autocmd("BufEnter", {
+autocmd("BufEnter", {
 	desc = "Changing the BufferLineIndicatorSelected highlight according to the color of icon",
 	callback = function()
 		vim.cmd(get_icon_hl())
+	end,
+})
+
+autocmd("InsertLeave", {
+	desc = "Auto saving rust files because rust-analyzer does not support on-the-fly linting",
+	callback = function()
+		if vim.bo.filetype ~= "rust" then
+			return
+		end
+		vim.schedule(function()
+			vim.cmd("silent w")
+		end)
+	end,
+})
+
+autocmd("FocusLost", {
+	callback = function()
+		vim.cmd("lua ForceLualineFocusLost = true")
+	end,
+})
+autocmd("FocusGained", {
+	callback = function()
+		vim.cmd("lua ForceLualineFocusLost = nil")
+	end,
+})
+
+autocmd({ "FocusLost", "WinLeave" }, {
+	callback = function()
+		vim.o.cursorline = false
+	end,
+})
+autocmd({ "FocusGained", "WinEnter" }, {
+	callback = function()
+		if vim.bo.filetype == nil then
+			return
+		end
+		if vim.bo.filetype == "alpha" then
+			return
+		end
+		vim.o.cursorline = true
 	end,
 })

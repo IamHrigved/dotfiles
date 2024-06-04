@@ -7,8 +7,8 @@ end
 
 -- escape from insert mode
 noremap("i", "kj", "<Esc>")
--- nn to write in next line in insert mode
-noremap("i", "nn", "<C-o>o")
+-- nl to write in next line in insert mode
+noremap("i", "nl", "<C-o>o")
 -- press Ctrl+h or Ctrl+BS for backward deletion of a word in insert mode
 -- noremap("i", "<C-h>", "<C-w>")
 -- press Ctrl+l and Ctrl+h to go at the start or end of a line
@@ -25,7 +25,7 @@ noremap("n", "<C-k>", "<C-w>k")
 noremap("v", "K", ":m '<-2<CR>gv=gv")
 noremap("v", "J", ":m '>+1<CR>gv=gv")
 
-noremap("v", "<C-c>", '"+y')
+noremap({ "v", "n" }, "<C-c>", '"+y')
 -- to paste, just do C-S-v
 
 -- window resizing keybindings

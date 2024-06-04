@@ -1,20 +1,20 @@
 require("windows").setup({
-	autowidth = { --		       |windows.autowidth|
+	autowidth = {
 		enable = true,
-		winwidth = 0, --		        |windows.winwidth|
-		filetype = { --	      |windows.autowidth.filetype|
+		winwidth = 0,
+		filetype = {
 			help = 2,
 		},
 	},
-	ignore = { --			  |windows.ignore|
+	ignore = {
 		buftype = { "quickfix", "terminal" },
-		filetype = { "NvimTree", "neo-tree", "undotree", "gundo", "toggleterm" }
+		filetype = { "NvimTree", "neo-tree", "undotree", "gundo", "toggleterm" },
 	},
 	animation = {
-		enable = false, -- toggleterm not working with animation enabled
-		duration = 250,
+		enable = true, -- toggleterm not working with animation enabled
+		duration = 150,
 		fps = 60,
-		easing = "in_out_sine"
+		easing = "in_out_sine",
 	},
 })
 

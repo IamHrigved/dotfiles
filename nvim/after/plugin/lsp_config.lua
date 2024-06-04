@@ -94,7 +94,9 @@ end
 
 -- configuring all lsp's
 default_setup("lua_ls", {})
+
 default_setup("marksman", {})
+
 default_setup("rust_analyzer", {
 	settings = {
 		["rust-analyzer"] = {

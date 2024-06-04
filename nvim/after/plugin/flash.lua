@@ -1,4 +1,4 @@
-require("flash").setup {
+require("flash").setup({
 	-- labels = "abcdefghijklmnopqrstuvwxyz",
 	labels = "asdfghjklqwertyuiopzxcvbnm",
 	search = {
@@ -89,7 +89,7 @@ require("flash").setup {
 		rainbow = {
 			enabled = false,
 			-- number between 1 and 9
-			shade = 5,
+			shade = 7,
 		},
 		-- With `format`, you can change how the label is rendered.
 		-- Should return a list of `[text, highlight]` tuples.
@@ -127,7 +127,7 @@ require("flash").setup {
 		search = {
 			-- when `true`, flash will be activated during regular search by default.
 			-- You can always toggle when searching with `require("flash").toggle()`
-			enabled = false,
+			enabled = true,
 			highlight = { backdrop = false },
 			jump = { history = true, register = true, nohlsearch = true },
 			search = {
@@ -236,8 +236,26 @@ require("flash").setup {
 		-- `nil`: act as `true` for remote windows, `false` for the current window
 		motion = false,
 	},
-}
+})
 
-vim.keymap.set({ "n", "x", "o" }, "s", function() require("flash").jump() end, {})
-vim.keymap.set({ "n" }, "S", function() require("flash").treesitter() end, {})
-vim.keymap.set({ "o", "x" }, "R", function() require("flash").treesitter_search() end, {})
+vim.keymap.set({ "n", "x", "o" }, "s", function()
+	require("flash").jump()
+end, {})
+vim.keymap.set({ "n" }, "S", function()
+	require("flash").treesitter()
+end, {})
+vim.keymap.set({ "o", "x" }, "R", function()
+	require("flash").treesitter_search()
+end, {})
+vim.keymap.set("c", "<C-c>", function()
+	require("flash").toggle()
+end)
+
+vim.keymap.set("n", "<leader>s", function()
+	require("flash").jump({
+		search = { mode = "search", max_length = 0 },
+		label = { after = { 0, 0 } },
+		pattern = "$",
+	})
+end)
+vim.cmd("hi! FlashLabel guibg=#e55561 guifg=#1f2329")

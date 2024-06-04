@@ -164,15 +164,14 @@ local plugins = {
 		},
 	},
 	{
-		"folke/flash.nvim",
-	},
-	{
 		"folke/trouble.nvim",
 		branch = "main",
 		-- dependencies = { "nvim-tree/nvim-web-devicons" },
 		opts = {},
 	},
 
+	"folke/flash.nvim",
+	"folke/zen-mode.nvim",
 	"nvim-telescope/telescope-ui-select.nvim",
 	"olimorris/persisted.nvim",
 	"stevearc/dressing.nvim",

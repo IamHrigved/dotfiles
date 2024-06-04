@@ -25,7 +25,7 @@ vim.opt.softtabstop = 4
 
 vim.opt.smoothscroll = true
 
-vim.opt.guicursor = "n-c-v-i:block,i:blinkwait20-blinkon20-blinkoff20"
+vim.opt.guicursor = "n-c-v-i:block,i:blinkwait150-blinkon150-blinkoff150"
 
 vim.opt.wrap = false
 

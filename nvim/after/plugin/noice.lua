@@ -116,9 +116,7 @@ require("noice").setup({
 			enabled = true,
 			-- Lsp Progress is formatted using the builtins for lsp_progress. See config.format.builtin
 			-- See the section on formatting for more details on how to customize.
-			--- @type NoiceFormat|string
 			format = "lsp_progress",
-			--- @type NoiceFormat|string
 			format_done = "lsp_progress_done",
 			throttle = 10 / 30, -- frequency to update lsp progress message
 			view = "mini",
@@ -135,7 +133,6 @@ require("noice").setup({
 			enabled = true,
 			silent = false, -- set to true to not show a message if hover is not available
 			view = "hover", -- when nil, use defaults from documentation
-			---@type NoiceViewOptions
 			opts = {}, -- merged with defaults from documentation
 		},
 		signature = {
@@ -147,7 +144,6 @@ require("noice").setup({
 				throttle = 50, -- Debounce lsp signature help request by 50ms
 			},
 			view = nil, -- when nil, use defaults from documentation
-			---@type NoiceViewOptions
 			opts = {}, -- merged with defaults from documentation
 		},
 		message = {
@@ -159,7 +155,6 @@ require("noice").setup({
 		-- defaults for hover and signature help
 		documentation = {
 			view = "hover",
-			---@type NoiceViewOptions
 			opts = { -- for border settings, see presets.lsp_doc_border
 				lang = "markdown",
 				replace = true,
@@ -195,7 +190,6 @@ require("noice").setup({
 		-- add any filetypes here, that shouldn't trigger smart move.
 		excluded_filetypes = { "cmp_menu", "cmp_docs", "notify" },
 	},
-	---@type NoicePresets
 	presets = {
 		-- you can enable a preset by setting it to true, or a table that will override the preset config
 		-- you can also add custom presets that you can enable/disable with enabled=true
@@ -221,7 +215,6 @@ require("noice").setup({
 		}, -- add a border to hover docs and signature help
 	},
 	throttle = 1000 / 30, -- how frequently does Noice need to check for ui updates? This has no effect when in blocking mode.
-	---@type NoiceConfigViews
 	views = {
 		split = {
 			win_options = {
@@ -272,7 +265,13 @@ require("noice").setup({
 		},
 	}, --- @see section on routes
 	status = {}, --- @see section on statusline components
-	format = {}, --- @see section on formatting
+	format = {
+		lsp_progress_done = {
+			{ " ", hl_group = "NoiceLspProgressSpinner" },
+			{ "{data.progress.title} ", hl_group = "NoiceLspProgressTitle" },
+			{ "{data.progress.client} ", hl_group = "NoiceLspProgressClient" },
+		},
+	}, --- @see section on formatting
 })
 
 require("notify").setup({

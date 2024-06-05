@@ -10,4 +10,8 @@
 
 ![Neovim](./assets/ScreenshotNeovim.png)
 
+![LearnRust](./assets/ScreenshotLearnRust.png)
+
+##### Last image [source](https://github.com/iamhrigved/learn-rust). Please checkout if you wanna learn rust
+
 ##### Note: My terminal (WindowsTerminal) background is transparent

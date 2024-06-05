@@ -12,5 +12,7 @@ require("conform").setup({
 		javascript = { { "prettierd", "prettier" } },
 		markdown = { "prettier", "markdownlint" },
 		rust = { "rustfmt" },
+		c = { "clang-format-18" },
+		cpp = { "clang-format-18" },
 	},
 })

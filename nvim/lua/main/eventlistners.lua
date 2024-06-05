@@ -1,9 +1,7 @@
---
 local function autocmd(events, opts)
 	vim.api.nvim_create_autocmd(events, opts)
 end
 
---
 -- Formatting on file save
 autocmd("BufWritePre", {
 	desc = "Formatting on file save",

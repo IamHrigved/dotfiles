@@ -251,7 +251,7 @@ vim.keymap.set("c", "<C-c>", function()
 	require("flash").toggle()
 end)
 
-vim.keymap.set("n", "<leader>s", function()
+vim.keymap.set("n", "s  ", function()
 	require("flash").jump({
 		search = { mode = "search", max_length = 0 },
 		label = { after = { 0, 0 } },

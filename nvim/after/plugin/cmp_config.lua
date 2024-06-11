@@ -74,18 +74,9 @@ cmp.setup({
 		documentation = {
 			scrollbar = "|",
 			max_height = 15,
-			max_width = 60,
+			max_width = 0.8 * vim.api.nvim_win_get_width(0),
 			winhighlight = "Normal:CmpPmenu,Search:None,CursorLine:Pmenu,CmpBorder:DiagnosticSignInfo", -- border will be the same as border of Noice cmdline_popup
-			border = {
-				{ "╭", "CmpBorder" },
-				{ "─", "CmpBorder" },
-				{ "╮", "CmpBorder" },
-				{ "│", "CmpBorder" },
-				{ "╯", "CmpBorder" },
-				{ "─", "CmpBorder" },
-				{ "╰", "CmpBorder" },
-				{ "│", "CmpBorder" },
-			},
+			border = "rounded",
 		},
 
 		completion = {
@@ -93,16 +84,7 @@ cmp.setup({
 			side_padding = 1,
 			scrollbar = "|",
 			winhighlight = "Normal:CmpPmenu,CursorLine:Visual,Search:None,CmpBorder:DiagnosticSignInfo", -- border will be the same as border of Noice cmdline_popup
-			border = {
-				{ "╭", "CmpBorder" },
-				{ "─", "CmpBorder" },
-				{ "╮", "CmpBorder" },
-				{ "│", "CmpBorder" },
-				{ "╯", "CmpBorder" },
-				{ "─", "CmpBorder" },
-				{ "╰", "CmpBorder" },
-				{ "│", "CmpBorder" },
-			},
+			border = "rounded",
 		},
 	},
 	-- preselect the first item in the list
@@ -124,8 +106,8 @@ cmp.setup({
 		["<Tab>"] = cmp.mapping.confirm({ select = true }),
 		["<C-Space>"] = cmp.mapping.complete(),
 		["<C-e>"] = cmp.mapping.abort(),
-		["<C-k>"] = cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Select }),
-		["<C-j>"] = cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Select }),
+		["<C-k>"] = cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Insert }),
+		["<C-j>"] = cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Insert }),
 		["<C-b>"] = cmp.mapping.scroll_docs(-4),
 		["<C-f>"] = cmp.mapping.scroll_docs(4),
 	}),
@@ -148,7 +130,7 @@ cmp.setup({
 -- autocomplete for command line
 --`/` cmdline setup.
 cmp.setup.cmdline("/", {
-	mapping = cmp.mapping.preset.cmdline(),
+	mapping = cmp.mapping.preset.cmdline({}),
 	sources = {
 		{ name = "buffer" },
 	},
@@ -157,7 +139,10 @@ cmp.setup.cmdline("/", {
 -- `:` cmdline setup.
 cmp.setup.cmdline(":", {
 	mapping = cmp.mapping.preset.cmdline({
-		["<Tab>"] = cmp.mapping.confirm({ select = true }),
+		["<Tab>"] = { c = cmp.mapping.confirm({ select = true }) },
+		["<C-Space>"] = { c = cmp.mapping.complete() },
+		["<C-k>"] = { c = cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Insert }) },
+		["<C-j>"] = { c = cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Insert }) },
 	}),
 	sources = cmp.config.sources({
 		{ name = "path" },

@@ -29,7 +29,7 @@ require("noice").setup({
 		view_search = "virtualtext", -- view for search count messages. Set to `false` to disable
 	},
 	popupmenu = {
-		enabled = true, -- enables the Noice popupmenu UI
+		enabled = false, -- enables the Noice popupmenu UI
 		---@type 'nui'|'cmp'
 		backend = "nui", -- backend to use to show regular cmdline completions
 		-- Icons for completion item kinds (see defaults at noice.config.icons.kinds)
@@ -155,14 +155,26 @@ require("noice").setup({
 		-- defaults for hover and signature help
 		documentation = {
 			view = "hover",
-			opts = { -- for border settings, see presets.lsp_doc_border
+			opts = { -- lsp_docs settings
 				lang = "markdown",
 				replace = true,
 				render = "plain",
 				format = { "{message}" },
+				position = { row = 2, col = 2 },
+				size = {
+					max_width = 0.8 * vim.api.nvim_win_get_width(0),
+					max_height = 15,
+				},
+				border = {
+					style = "rounded",
+				},
 				win_options = {
 					concealcursor = "n",
 					conceallevel = 3,
+					winhighlight = {
+						Normal = "CmpPmenu",
+						FloatBorder = "DiagnosticSignInfo",
+					},
 				},
 			},
 		},
@@ -197,22 +209,6 @@ require("noice").setup({
 		command_palette = true, -- position the cmdline and popupmenu together
 		long_message_to_split = true, -- long messages will be sent to a split
 		inc_rename = true, -- enables an input dialog for inc-rename.nvim
-		lsp_doc_border = { -- border for hover
-			views = {
-				hover = {
-					border = {
-						style = "rounded",
-					},
-					position = { row = 2, col = 2 },
-					win_options = {
-						winhighlight = {
-							Normal = "CmpPmenu",
-							FloatBorder = "DiagnosticSignInfo",
-						},
-					},
-				},
-			},
-		}, -- add a border to hover docs and signature help
 	},
 	throttle = 1000 / 30, -- how frequently does Noice need to check for ui updates? This has no effect when in blocking mode.
 	views = {
@@ -252,7 +248,6 @@ require("noice").setup({
 				skip = true,
 			},
 		},
-
 		{
 			filter = {
 				event = "msg_show",

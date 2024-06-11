@@ -43,8 +43,6 @@ local plugins = {
 		"windwp/nvim-autopairs",
 		event = "InsertEnter",
 		config = true,
-		-- use opts = {} for passing setup options
-		-- this is equalent to setup({}) function
 	},
 	{
 		"goolord/alpha-nvim",
@@ -56,9 +54,6 @@ local plugins = {
 			"nvim-tree/nvim-web-devicons",
 			"nvim-lua/plenary.nvim",
 		},
-	},
-	{
-		"nvim-tree/nvim-web-devicons",
 	},
 	{
 		"christoomey/vim-tmux-navigator",
@@ -97,43 +92,36 @@ local plugins = {
 
 	-- [[ LSP and Autocompletions: ]] --
 
-	-- LSP
-	"neovim/nvim-lspconfig",
+	-- LSP and Formatting
 
 	-- Autocompletion
+	{
+		"stevearc/conform.nvim",
+		"mfussenegger/nvim-lint",
+		"neovim/nvim-lspconfig",
+	},
 	{
 		"hrsh7th/nvim-cmp",
 		"hrsh7th/cmp-nvim-lsp",
 		"L3MON4D3/LuaSnip",
 		"hrsh7th/cmp-cmdline", -- for cmd auto complete
-		"onsails/lspkind.nvim", -- for vscode like symbols fin auto complete menu
-	},
-
-	{
-		"stevearc/conform.nvim",
-		"mfussenegger/nvim-lint",
+		"onsails/lspkind.nvim", -- for vscode like symbols for auto complete menu
 	},
 
 	--  [[ Themes: ]]      --
 
-	"ellisonleao/gruvbox.nvim",
-	"navarasu/onedark.nvim",
-	"rebelot/kanagawa.nvim",
-	{ "catppuccin/nvim", name = "catppuccin", priority = 1000 },
-	{ "EdenEast/nightfox.nvim" }, -- lazy
-	{ "bluz71/vim-nightfly-colors", name = "nightfly", lazy = false, priority = 1000 },
-	{ "folke/tokyonight.nvim", lazy = false, priority = 1000 },
+	{ "navarasu/onedark.nvim", event = "VimEnter" },
 
 	-- [[ General Purpose: ]] --
 
 	{
 		"kylechui/nvim-surround",
+		event = "InsertEnter",
 		version = "main",
 		config = function()
 			require("nvim-surround").setup()
 		end,
 	},
-
 	{
 		"akinsho/bufferline.nvim",
 		version = "*",
@@ -141,6 +129,7 @@ local plugins = {
 	},
 	{
 		"utilyre/barbecue.nvim",
+		event = "LspAttach",
 		name = "barbecue",
 		version = "*",
 		dependencies = {
@@ -150,6 +139,7 @@ local plugins = {
 	},
 	{
 		"kevinhwang91/nvim-ufo",
+		event = "LspAttach",
 		dependencies = {
 			"kevinhwang91/promise-async",
 			"luukvbaal/statuscol.nvim",
@@ -183,28 +173,6 @@ local plugins = {
 	{
 		"lukas-reineke/indent-blankline.nvim",
 		main = "ibl",
-		opts = {
-			indent = {
-				char = "▎",
-				tab_char = "▎",
-			},
-			scope = { enabled = false },
-			exclude = {
-				filetypes = {
-					"help",
-					"alpha",
-					"dashboard",
-					"neo-tree",
-					"Trouble",
-					"trouble",
-					"lazy",
-					"mason",
-					"notify",
-					"toggleterm",
-					"lazyterm",
-				},
-			},
-		},
 	},
 	{
 		"echasnovski/mini.indentscope",

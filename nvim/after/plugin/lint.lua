@@ -1,5 +1,6 @@
-require('lint').linters_by_ft = {
-	markdown = { 'markdownlint', }
+require("lint").linters_by_ft = {
+	markdown = { "markdownlint" },
+	json = { "jsonlint" },
 }
 vim.api.nvim_create_autocmd({ "BufEnter" }, {
 	callback = function()

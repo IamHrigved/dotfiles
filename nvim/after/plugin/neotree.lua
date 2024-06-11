@@ -72,7 +72,7 @@ require("neo-tree").setup({
 		},
 		name = {
 			trailing_slash = false,
-			use_git_status_colors = true,
+			use_git_status_colors = false,
 			highlight = "NeoTreeFileName",
 		},
 		git_status = {
@@ -123,17 +123,13 @@ require("neo-tree").setup({
 			nowait = true,
 		},
 		mappings = {
-			["<space>"] = {
-				"toggle_node",
-				nowait = false, -- disable `nowait` if you have existing combos starting with this char that you want to use
-			},
 			["<2-LeftMouse>"] = "open",
 			["<cr>"] = "open",
-			["o"] = "open",
+			["l"] = "open",
 			["<esc>"] = "cancel", -- close preview or floating neo-tree window
 			["P"] = { "toggle_preview", config = { use_float = true, use_image_nvim = true } },
 			-- Read `# Preview Mode` for more information
-			["l"] = "focus_preview",
+			-- ["l"] = "focus_preview",
 			["S"] = "open_split",
 			["s"] = "open_vsplit",
 			-- ["S"] = "split_with_window_picker",
@@ -180,7 +176,7 @@ require("neo-tree").setup({
 	nesting_rules = {},
 	filesystem = {
 		filtered_items = {
-			visible = true, -- when true, they will just be displayed differently than normal items
+			visible = false, -- when true, they will just be displayed differently than normal items
 			hide_dotfiles = false,
 			hide_gitignored = false,
 			hide_hidden = false, -- only works on Windows for hidden files/directories

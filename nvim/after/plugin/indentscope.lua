@@ -42,8 +42,32 @@ require("mini.indentscope").setup({ -- No need to copy this inside `setup()`. Wi
 	},
 
 	-- Which character to use for drawing scope indicator
-	symbol = "▎",
+	symbol = "▏",
 })
 
-vim.cmd("hi! link MiniIndentscopeSymbol TSRainbowCyan")
+vim.cmd("hi! link MiniIndentscopeSymbol TSRainbowYellow")
 vim.cmd("hi! link MiniIndentscopeSymbolOff DiagnosticError")
+vim.cmd("hi! IndentBlanklineCustom guifg=#393E45")
+require("ibl").setup({
+	indent = {
+		char = "󰄾",
+		tab_char = "󰄾",
+		highlight = { "IndentBlanklineCustom" },
+	},
+	scope = { enabled = false },
+	exclude = {
+		filetypes = {
+			"help",
+			"alpha",
+			"dashboard",
+			"neo-tree",
+			"Trouble",
+			"trouble",
+			"lazy",
+			"mason",
+			"notify",
+			"toggleterm",
+			"lazyterm",
+		},
+	},
+})

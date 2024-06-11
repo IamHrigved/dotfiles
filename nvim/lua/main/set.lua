@@ -7,7 +7,7 @@ end
 vim.opt.nu = true
 vim.opt.relativenumber = true
 
-vim.opt.wildmenu = true
+vim.opt.wildmenu = false
 vim.opt.showmode = false
 
 vim.opt.ignorecase = true
@@ -25,7 +25,7 @@ vim.opt.softtabstop = 4
 
 vim.opt.smoothscroll = true
 
-vim.opt.guicursor = "n-c-v-i:block,i:blinkwait150-blinkon150-blinkoff150"
+vim.opt.guicursor = "n-c-v-i:block,o:hor40,i:blinkwait150-blinkon150-blinkoff150"
 
 vim.opt.wrap = false
 

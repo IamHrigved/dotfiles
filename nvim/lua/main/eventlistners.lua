@@ -101,7 +101,7 @@ autocmd("InsertLeave", {
 			return
 		end
 		vim.schedule(function()
-			vim.cmd("silent w")
+			vim.cmd("silent! w") -- silent! disables all messages including error messages
 		end)
 	end,
 })

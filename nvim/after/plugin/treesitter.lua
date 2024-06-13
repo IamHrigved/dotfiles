@@ -1,6 +1,6 @@
-require 'nvim-treesitter.configs'.setup {
+require("nvim-treesitter.configs").setup({
 	-- A list of parser names, or "all" (the five listed parsers should always be installed)
-	ensure_installed = { "javascript", "c", "lua", "vim", "vimdoc", "query" },
+	ensure_installed = { "c", "lua", "vim", "vimdoc", "query" },
 
 	-- Install parsers synchronously (only applied to `ensure_installed`)
 	sync_install = false,
@@ -46,6 +46,16 @@ require 'nvim-treesitter.configs'.setup {
 			node_incremental = "<C-s>",
 			scope_incremental = false,
 			node_decremental = "<bs>",
-		}
+		},
 	},
-}
+
+	textobjects = {
+		move = {
+			enable = true,
+			goto_next_start = { ["]f"] = "@function.outer", ["]c"] = "@class.outer" },
+			goto_next_end = { ["]F"] = "@function.outer", ["]C"] = "@class.outer" },
+			goto_previous_start = { ["[f"] = "@function.outer", ["[c"] = "@class.outer" },
+			goto_previous_end = { ["[F"] = "@function.outer", ["[C"] = "@class.outer" },
+		},
+	},
+})

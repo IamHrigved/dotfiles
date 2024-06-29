@@ -59,7 +59,7 @@
 				},
 				{
 					"style": "plain",
-					"template": "<cyan>  {{ .HEAD }}</>{{ if (.Working.Changed) }}<red> 󱎘{{ if gt .Working.Untracked 0 }}<red> ?{{ .Working.Untracked }}</>{{ end }}</>{{ end }}{{ if gt .Behind 0 }}<cyan> </>{{ end }}{{ if gt .Ahead 0 }}<cyan> </>{{ end }} {{ if (.Staging.Changed) }}{{ if not (.Working.Changed) }}<green>󰸞 </>{{ end }}{{ .Staging.String }}{{ end }}",
+					"template": "<cyan>  {{ .HEAD }}</>{{ if gt .Behind 0 }}<cyan> </>{{ end }}{{ if gt .Ahead 0 }}<cyan> </>{{ end }}{{ if (.Working.Changed) }}<red> 󱎘{{ if gt .Working.Untracked 0 }}<red> ?{{ .Working.Untracked }}</>{{ end }}</>{{ end }} {{ if (.Staging.Changed) }}{{ if not (.Working.Changed) }}<green>󰸞 </>{{ end }}{{ .Staging.String }}{{ end }}",
 					"type": "git",
 					"properties": {
 						"fetch_status": true,

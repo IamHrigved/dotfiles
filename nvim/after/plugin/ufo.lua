@@ -2,12 +2,7 @@ vim.o.fillchars = [[eob: ,fold: ,foldopen:,foldsep: ,foldclose:]]
 vim.o.foldcolumn = "1" -- '0' is not bad
 vim.o.foldlevel = 99 -- Using ufo provider need a large value, feel free to decrease the value
 vim.o.foldlevelstart = 99
-vim.o.foldenable = true
-
--- Using ufo provider need remap `zR` and `zM`. If Neovim is 0.6.1, remap yourself
-vim.keymap.set("n", "zR", require("ufo").openAllFolds)
-vim.keymap.set("n", "zM", require("ufo").closeAllFolds)
-vim.keymap.set("n", "zp", require("ufo").peekFoldedLinesUnderCursor)
+vim.o.foldenable = false
 
 local builtin = require("statuscol.builtin")
 require("statuscol").setup({
@@ -71,7 +66,7 @@ require("ufo").setup({
 	preview = {
 		win_config = {
 			border = "rounded",
-			winhighlight = "Normal:Folded",
+			winhighlight = "Normal:Normal",
 			winblend = 0,
 		},
 		mappings = {
@@ -82,3 +77,16 @@ require("ufo").setup({
 		},
 	},
 })
+
+vim.keymap.set("n", "zR", require("ufo").openAllFolds)
+vim.keymap.set("n", "zM", require("ufo").closeAllFolds)
+vim.keymap.set("n", "zp", require("ufo").peekFoldedLinesUnderCursor)
+vim.keymap.set("n", "zi", function()
+	if vim.o.foldenable then
+		vim.o.foldenable = false
+	else
+		vim.o.foldenable = true
+		vim.cmd("UfoAttach")
+		vim.cmd("")
+	end
+end)

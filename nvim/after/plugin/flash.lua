@@ -185,7 +185,7 @@ require("flash").setup({
 				}
 			end,
 			search = { wrap = false },
-			highlight = { backdrop = true },
+			highlight = { backdrop = false },
 			jump = { register = false },
 		},
 		-- options used for treesitter selections
@@ -251,10 +251,13 @@ vim.keymap.set("c", "<C-c>", function()
 	require("flash").toggle()
 end)
 
-vim.keymap.set("n", "s  ", function()
+vim.keymap.set("n", "en", function()
 	require("flash").jump({
 		search = { mode = "search", max_length = 0 },
 		label = { after = { 0, 0 } },
+		highlight = {
+			backdrop = false,
+		},
 		pattern = "$",
 	})
 end)

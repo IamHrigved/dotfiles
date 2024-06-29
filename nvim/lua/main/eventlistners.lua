@@ -19,11 +19,18 @@ autocmd("TextYankPost", {
 	end,
 })
 
+autocmd("VimLeavePre", {
+	callback = function()
+		vim.cmd("!cd " .. vim.fn.gencwd())
+	end,
+})
+
 autocmd("User", {
 	pattern = "AlphaReady",
 	desc = "Disable statusline in startup screen",
 	callback = function()
 		vim.go.laststatus = 0
+		vim.b.miniindentscope_disable = true
 	end,
 })
 
@@ -95,13 +102,12 @@ autocmd("BufEnter", {
 })
 
 autocmd("InsertLeave", {
-	desc = "Auto saving rust files because rust-analyzer does not support on-the-fly linting",
 	callback = function()
-		if vim.bo.filetype ~= "rust" then
-			return
-		end
 		vim.schedule(function()
-			vim.cmd("silent! w") -- silent! disables all messages including error messages
+			if vim.bo.filetype ~= "rust" then
+				return
+			end
+			vim.cmd("silent! w")
 		end)
 	end,
 })
@@ -131,5 +137,12 @@ autocmd({ "FocusGained", "WinEnter" }, {
 			return
 		end
 		vim.o.cursorline = true
+	end,
+})
+
+autocmd("FileType", {
+	pattern = "TelescopePrompt",
+	callback = function()
+		vim.o.cursorline = false
 	end,
 })

@@ -9,12 +9,14 @@ end
 noremap("i", "kj", "<Esc>")
 -- nn to write in next line in insert mode
 noremap("i", "nn", "<C-o>o")
--- press Ctrl+h or Ctrl+BS for backward deletion of a word in insert mode
--- noremap("i", "<C-h>", "<C-w>")
-noremap("i", "<C-h>", "<C-left>")
-noremap("i", "<C-l>", "<C-right>")
-noremap("i", "<C-j>", "<C-o>_")
-noremap("i", "<C-k>", "<C-o>$")
+
+noremap({ "i", "c" }, "<C-h>", "<C-left>")
+noremap({ "i", "c" }, "<C-l>", "<C-right>")
+noremap({ "i" }, "<C-j>", "<C-o>_")
+noremap({ "i" }, "<C-k>", "<C-o>$")
+
+noremap("n", "<leader>hv", ":vert h ")
+noremap("n", "<leader>hh", ":h ")
 
 -- window navigation keybindings
 noremap("n", "<C-h>", "<C-w>h")
@@ -26,6 +28,9 @@ noremap("n", "<C-k>", "<C-w>k")
 noremap("v", "K", ":m '<-2<CR>gv=gv")
 noremap("v", "J", ":m '>+1<CR>gv=gv")
 
+-- preserve the text pasted in visual mode
+noremap("v", "p", '"_dp') -- delete into the null register and paste
+noremap("v", "D", '"_d') -- just delete into the null register
 noremap({ "v", "n" }, "<C-c>", '"+y')
 -- to paste, just do C-S-v
 
@@ -52,16 +57,22 @@ noremap("n", "<leader>ng", "<cmd>Neotree git_status left<CR>")
 -- split keybindings
 noremap("n", "<leader>sh", "<cmd>split<CR>")
 noremap("n", "<leader>sv", "<cmd>vsplit<CR>")
-noremap("n", "<leader>bd", "<cmd>bd!<CR>")
+noremap("n", "<leader>bd", function()
+	vim.cmd("BufDel!")
+end)
+noremap("n", "<leader>bD", function()
+	vim.cmd("BufDelOthers!")
+end)
 noremap("n", "<leader>sx", function()
-	if #vim.api.nvim_list_wins() > 1 then
-		local bufnr = vim.api.nvim_get_current_buf()
-		local modifiable = vim.api.nvim_buf_get_option(bufnr, "modifiable")
-		if modifiable then
-			vim.cmd("w | bd!")
-		else
-			vim.cmd("bd!")
-		end
+	if #vim.api.nvim_list_wins() <= 1 then
+		return
+	end
+	local bufnr = vim.api.nvim_get_current_buf()
+	local modifiable = vim.api.nvim_buf_get_option(bufnr, "modifiable")
+	if modifiable then
+		vim.cmd("silent w | bd!")
+	else
+		vim.cmd("bd!")
 	end
 end)
 

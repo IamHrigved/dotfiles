@@ -33,6 +33,23 @@ vim.api.nvim_create_autocmd("LspAttach", {
 	end,
 })
 
+require("mason").setup({
+	ui = {
+		height = 0.85,
+		width = 0.8,
+		border = "rounded",
+		keymaps = {
+			uninstall_package = "x",
+		},
+		icons = {
+			package_installed = "󰸞",
+			package_pending = "",
+			package_uninstalled = "󱎘",
+		},
+	},
+})
+require("mason-lspconfig").setup()
+
 vim.diagnostic.config({
 	signs = DiagnosticSigns,
 	severity_sort = true,
@@ -48,6 +65,7 @@ vim.diagnostic.config({
 	virtual_text = {
 		spacing = 4,
 		source = "if_many",
+		prefix = "󱓻",
 		-- prefix = function(diagnostic)
 		-- 	if diagnostic.severity == vim.diagnostic.severity.ERROR then
 		-- 		return DiagnosticSigns["Error"]
@@ -77,8 +95,8 @@ local default_on_attach = function(client, bufnr)
 	end
 end
 
--- defalt setup for differenet lsp's
-local default_setup = function(server, opts)
+-- default setup for differenet lsp's
+local setup = function(server, opts)
 	local default_opts = {
 		capabilities = lsp_capabilities,
 		on_attach = default_on_attach,
@@ -89,21 +107,47 @@ local default_setup = function(server, opts)
 	require("lspconfig")[server].setup(default_opts)
 end
 
--- configuring all lsp's
-default_setup("lua_ls", {})
+-- configuring all lsp installed via mason
+require("mason-lspconfig").setup_handlers({
+	function(server_name)
+		return setup(server_name, {})
+	end,
+})
 
-default_setup("marksman", {})
+-- configuring all LSPs installed manually (problem with mason usually vscode packages)
+setup("jsonls", {})
+setup("yamlls", {})
+setup("clangd", {})
 
-default_setup("clangd", {})
-
-default_setup("jsonls", {})
-
-default_setup("rust_analyzer", {
-	settings = {
-		["rust-analyzer"] = {
-			cargo = {
-				allFeatures = true,
+-- for Rust:
+vim.g.rustaceanvim = {
+	tools = {
+		float_win_config = {
+			lang = "markdown",
+			replace = true,
+			render = "plain",
+			position = { row = 2, col = 2 },
+			max_width = 0.8 * vim.api.nvim_win_get_width(0),
+			max_height = 15,
+			border = "rounded",
+			win_options = {
+				-- concealcursor = "n",
+				-- conceallevel = 3,
+				winhighlight = {
+					Normal = "Normal",
+					FloatBorder = "FloatBorder",
+				},
 			},
 		},
 	},
-})
+	server = {
+		capabilities = lsp_capabilities,
+		on_attatch = default_on_attach,
+		default_settings = {
+			["rust-analyzer"] = {
+				cargo = { allFeatures = true },
+				checkOnSave = true,
+			},
+		},
+	},
+}

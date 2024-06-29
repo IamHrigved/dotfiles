@@ -162,7 +162,7 @@ require("noice").setup({
 				format = { "{message}" },
 				position = { row = 2, col = 2 },
 				size = {
-					max_width = 0.8 * vim.api.nvim_win_get_width(0),
+					max_width = math.floor(0.8 * vim.api.nvim_win_get_width(0)),
 					max_height = 15,
 				},
 				border = {
@@ -170,7 +170,7 @@ require("noice").setup({
 				},
 				win_options = {
 					concealcursor = "n",
-					conceallevel = 3,
+					conceallevel = 0,
 					winhighlight = {
 						Normal = "CmpPmenu",
 						FloatBorder = "DiagnosticSignInfo",

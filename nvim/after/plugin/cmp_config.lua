@@ -21,43 +21,38 @@ function CmpBefore(entry, vim_item)
 end
 
 local lspKindFormat = lspkind.cmp_format({
-	mode = "symbol_text", -- show only symbol annotations
-	maxwidth = 20, -- prevent the popup from showing more than provided characters (e.g 50 will not show more than 50 characters)
-	-- can also be a function to dynamically calculate max width such as
-	-- maxwidth = function() return math.floor(0.45 * vim.o.columns) end,
-	ellipsis_char = "...", -- when popup menu exceed maxwidth, the truncated part would show ellipsis_char instead (must define maxwidth first)
-	show_labelDetails = false, -- show labelDetails in menu. Disabled by default
-
-	-- The function below will be called before any actual modifications from lspkind
-	-- so that you can provide more controls on popup customization. (See [#30](https://github.com/onsails/lspkind-nvim/pull/30))
+	mode = "symbol_text",
+	maxwidth = 20,
+	ellipsis_char = "...",
+	show_labelDetails = false,
 	before = CmpBefore,
 
 	symbol_map = {
-		Text = "", --
-		Method = "", --
-		Function = "", --
-		Constructor = "󱁤",
-		Field = "󰜢",
-		Variable = "󰀫󰂡",
 		Class = "󰠱", --
+		Color = "",
+		Constant = "󰏿", -- 
+		Constructor = "󱁤",
+		Enum = "",
+		EnumMember = "",
+		Event = "", --
+		Field = "󰜢",
+		File = "󰈙",
+		Folder = "󰉋",
+		Function = "", --
 		Interface = "", --
+		Keyword = "󰌋",
+		Method = "", --
 		Module = "", --
+		Operator = "󰆕",
 		Property = "",
+		Reference = "",
+		Snippet = "", -- 
+		Struct = "󰙅",
+		Text = "󰉿", --
+		TypeParameter = "",
 		Unit = "",
 		Value = "󰎠",
-		Enum = "",
-		Keyword = "󰌋",
-		Snippet = "",
-		Color = "",
-		File = "󰈙",
-		Reference = "",
-		Folder = "󰉋",
-		EnumMember = "",
-		Constant = "󰏿", -- 
-		Struct = "󰙅",
-		Event = "", --
-		Operator = "󰆕",
-		TypeParameter = "",
+		Variable = "󰀫󰂡",
 	},
 })
 -- basic autocomplete
@@ -65,12 +60,10 @@ cmp.setup({
 	sources = {
 		{ name = "nvim_lsp" },
 		{ name = "buffer" },
+		{ name = "emoji" },
 	},
 
 	window = {
-		--completion = cmp.config.window.bordered(),
-		--documentation = cmp.config.window.bordered(),
-
 		documentation = {
 			scrollbar = "|",
 			max_height = 15,
@@ -87,14 +80,12 @@ cmp.setup({
 			border = "rounded",
 		},
 	},
-	-- preselect the first item in the list
 	preselect = "item",
 	completion = {
 		completeopt = "menu,menuone,preview,noinsert",
 	},
 	formatting = {
 		fields = { "abbr", "menu", "kind" },
-		-- format = lspKindFormat,
 		format = function(entry, vim_item)
 			local item = lspKindFormat(entry, vim_item)
 			item.kind = item.kind .. " "
@@ -105,7 +96,7 @@ cmp.setup({
 	mapping = cmp.mapping.preset.insert({
 		["<Tab>"] = cmp.mapping.confirm({ select = true }),
 		["<C-Space>"] = cmp.mapping.complete(),
-		["<C-e>"] = cmp.mapping.abort(),
+		["<C-c>"] = cmp.mapping.abort(),
 		["<C-k>"] = cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Insert }),
 		["<C-j>"] = cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Insert }),
 		["<C-b>"] = cmp.mapping.scroll_docs(-4),
@@ -130,10 +121,18 @@ cmp.setup({
 -- autocomplete for command line
 --`/` cmdline setup.
 cmp.setup.cmdline("/", {
-	mapping = cmp.mapping.preset.cmdline({}),
-	sources = {
+	mapping = cmp.mapping.preset.cmdline({
+		["<Tab>"] = { c = cmp.mapping.confirm({ select = true }) },
+		["<C-Space>"] = { c = cmp.mapping.complete() },
+		["<C-k>"] = { c = cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Insert }) },
+		["<C-j>"] = { c = cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Insert }) },
+		["<C-c>"] = { c = cmp.mapping.abort() },
+	}),
+	sources = cmp.config.sources({
+		{ name = "nvim_lsp_document_symbol" },
+	}, {
 		{ name = "buffer" },
-	},
+	}),
 })
 
 -- `:` cmdline setup.
@@ -143,6 +142,7 @@ cmp.setup.cmdline(":", {
 		["<C-Space>"] = { c = cmp.mapping.complete() },
 		["<C-k>"] = { c = cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Insert }) },
 		["<C-j>"] = { c = cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Insert }) },
+		["<C-c>"] = { c = cmp.mapping.abort() },
 	}),
 	sources = cmp.config.sources({
 		{ name = "path" },
@@ -165,8 +165,6 @@ cmp.setup.cmdline(":", {
 cmp.event:on("confirm_done", cmp_autopairs.on_confirm_done())
 
 local default = {
-	-- if you change or add symbol here
-	-- replace corresponding line in readme
 	Text = "󰉿",
 	Method = "󰆧",
 	Function = "󰊕",

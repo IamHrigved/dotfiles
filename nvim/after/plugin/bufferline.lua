@@ -49,6 +49,20 @@ bufferline.setup({
 				seperator = true,
 				highlight = "NeoTreeRootName",
 			},
+			{
+				filetype = "undotree",
+				text = "Undo Tree",
+				text_align = "center",
+				seperator = true,
+				highlight = "NeoTreeRootName",
+			},
+			{
+				filetype = "diff",
+				text = "Undo Diff",
+				text_align = "center",
+				seperator = true,
+				highlight = "NeoTreeRootName",
+			},
 		},
 		style_preset = {
 			--bufferline.style_preset.minimal,

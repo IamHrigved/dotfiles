@@ -7,7 +7,11 @@ require("lualine").setup({
 		component_separators = { left = "", right = "" }, --  
 		section_separators = { left = "", right = "" },
 		disabled_filetypes = {
-			statusline = { "neo-tree" },
+			statusline = {
+				"neo-tree",
+				"undotree",
+				"diff",
+			},
 			winbar = {},
 		},
 		ignore_focus = {},
@@ -23,17 +27,6 @@ require("lualine").setup({
 		lualine_a = { "mode" },
 		lualine_b = {
 			"filename",
-			-- {
-			-- 	'diagnostics',
-			-- 	diagnostics_colors = {
-			-- 		error = "DiagnosticSignError",
-			-- 		warn = "DiagnosticSignWarn",
-			-- 		hint = "DiagnosticSignHint",
-			-- 		info = "DiagnosticSignInfo",
-			-- 	},
-			-- 	symbols = signs,
-			-- 	colored = true
-			-- }
 		},
 		lualine_c = {
 			"filetype",

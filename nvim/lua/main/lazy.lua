@@ -20,7 +20,10 @@ local plugins = {
 		"nvim-telescope/telescope.nvim",
 		tag = "0.1.6",
 		-- or                            , branch = '0.1.x',
-		dependencies = { { "nvim-lua/plenary.nvim" } },
+		dependencies = {
+			{ "nvim-lua/plenary.nvim" },
+			{ "jvgrootveld/telescope-zoxide" },
+		},
 	},
 	{
 		"nvim-treesitter/nvim-treesitter",
@@ -28,15 +31,17 @@ local plugins = {
 			local ts_update = require("nvim-treesitter.install").update({ with_sync = true })
 			ts_update()
 		end,
+		dependencies = {
+			"nvim-treesitter/nvim-treesitter-textobjects",
+		},
 	},
 	{
 		"nvim-neo-tree/neo-tree.nvim",
 		branch = "v3.x",
 		dependencies = {
 			"nvim-lua/plenary.nvim",
-			"nvim-tree/nvim-web-devicons", -- not strictly required, but recommended
+			"nvim-tree/nvim-web-devicons",
 			"MunifTanjim/nui.nvim",
-			-- "3rd/image.nvim", -- Optional image support in preview window: See `# Preview Mode` for more information
 		},
 	},
 	{
@@ -88,24 +93,68 @@ local plugins = {
 		"folke/noice.nvim",
 		dependencies = { "MunifTanjim/nui.nvim", "rcarriga/nvim-notify" },
 	},
+	{
+		"ojroques/nvim-bufdel",
+		config = function() -- for keymappings, see remap.lua
+			require("bufdel").setup({
+				next = "alternate",
+				quit = false,
+			})
+		end,
+	},
+	{
+		"mbbill/undotree",
+		config = function()
+			vim.keymap.set("n", "<leader>ut", "<cmd>UndotreeToggle<CR>", {})
+			vim.keymap.set("n", "<leader>uc", "<cmd>UndotreePersistUndo<CR>", {})
+			vim.g.undotree_DiffCommand = "batdiff"
+			vim.g.undotree_WindowLayout = 2
+			vim.g.undotree_SplitWidth = 35
+			vim.g.undotree_TreeVertShape = "⎪"
+			vim.g.undotree_TreeSplitShape = "/"
+			vim.g.undotree_TreeReturnShape = "\\"
+		end,
+	},
+
+	-- [[ GIT ]] --
 	{ "lewis6991/gitsigns.nvim" },
 
-	-- [[ LSP and Autocompletions: ]] --
+	-- [[ LSP, Autocompletions and, DAP : ]] --
 
 	-- LSP and Formatting
-
-	-- Autocompletion
 	{
 		"stevearc/conform.nvim",
 		"mfussenegger/nvim-lint",
 		"neovim/nvim-lspconfig",
+		"williamboman/mason.nvim",
+		"williamboman/mason-lspconfig",
 	},
+
+	-- Autocompletion
 	{
 		"hrsh7th/nvim-cmp",
 		"hrsh7th/cmp-nvim-lsp",
-		"L3MON4D3/LuaSnip",
 		"hrsh7th/cmp-cmdline", -- for cmd auto complete
+		"hrsh7th/cmp-buffer",
+		"hrsh7th/cmp-nvim-lsp-document-symbol",
+		"hrsh7th/cmp-emoji",
+		"L3MON4D3/LuaSnip",
 		"onsails/lspkind.nvim", -- for vscode like symbols for auto complete menu
+	},
+
+	-- Debugging
+	{
+		"mfussenegger/nvim-dap",
+		"rcarriga/nvim-dap-ui",
+		"nvim-neotest/nvim-nio",
+		"theHamsta/nvim-dap-virtual-text",
+	},
+
+	-- Rust
+	{
+		"mrcjkb/rustaceanvim",
+		ft = "rust",
+		version = "^4", -- Recommended
 	},
 
 	--  [[ Themes: ]]      --
@@ -151,6 +200,7 @@ local plugins = {
 		dependencies = {
 			"anuvyklack/middleclass",
 			"anuvyklack/animation.nvim",
+			"echasnovski/mini.animate",
 		},
 	},
 	{
@@ -160,6 +210,9 @@ local plugins = {
 		opts = {},
 	},
 
+	{ "echasnovski/mini.ai", version = false },
+	{ "mistricky/codesnap.nvim", build = "make" },
+	"Wansmer/treesj",
 	"folke/flash.nvim",
 	"folke/zen-mode.nvim",
 	"nvim-telescope/telescope-ui-select.nvim",
@@ -179,26 +232,9 @@ local plugins = {
 		version = false,
 		init = function()
 			vim.b.miniindentscope_disable = true
-			vim.api.nvim_create_autocmd("FileType", {
-				pattern = {
-					"help",
-					"alpha",
-					"dashboard",
-					"neo-tree",
-					"Trouble",
-					"trouble",
-					"lazy",
-					"mason",
-					"notify",
-					"toggleterm",
-					"lazyterm",
-				},
-				callback = function()
-					vim.b.miniindentscope_disable = true
-				end,
-			})
 		end,
 	},
+	"HiPhish/rainbow-delimiters.nvim",
 }
 
 require("lazy").setup(plugins, {

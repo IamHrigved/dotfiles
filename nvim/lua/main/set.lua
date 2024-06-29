@@ -14,6 +14,7 @@ vim.opt.ignorecase = true
 vim.opt.smartcase = true
 
 vim.opt.cursorline = true
+vim.opt.colorcolumn = "80"
 
 vim.opt.updatetime = 50
 
@@ -31,7 +32,6 @@ vim.opt.wrap = false
 
 vim.opt.swapfile = false
 vim.opt.backup = false
-vim.opt.undofile = false
 
 vim.opt.hlsearch = true
 vim.opt.incsearch = true

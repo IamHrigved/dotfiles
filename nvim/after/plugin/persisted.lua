@@ -1,7 +1,7 @@
 require("persisted").setup({
 	save_dir = vim.fn.expand(vim.fn.stdpath("data") .. "/sessions/"), -- directory where session files are saved
 	silent = false, -- silent nvim message when sourcing session file
-	use_git_branch = true, -- create session files based on the branch of a git enabled repository
+	use_git_branch = false, -- create session files based on the branch of a git enabled repository
 	default_branch = "main", -- the branch to load if a session file is not found for the current branch
 	autosave = true, -- automatically save session files when exiting Neovim
 	should_autosave = function()
@@ -12,11 +12,8 @@ require("persisted").setup({
 		return true
 	end,
 	autoload = false, -- automatically load the session for the cwd on Neovim startup
-	on_autoload_no_session = function() -- function to run when `autoload = true` but there is no session to load
-		vim.b.miniindentscope_disable = true
-		vim.cmd("Alpha")
-	end,
-	follow_cwd = true, -- change session file name to match current working directory if it changes
+	on_autoload_no_session = {},
+	follow_cwd = false, -- change session file name to match current working directory if it changes
 	allowed_dirs = nil, -- table of dirs that the plugin will auto-save and auto-load from
 	ignored_dirs = nil, -- table of dirs that are ignored when auto-saving and auto-loading
 	ignored_branches = nil, -- table of branch patterns that are ignored for auto-saving and auto-loading
@@ -51,15 +48,15 @@ vim.api.nvim_create_autocmd("User", {
 	callback = function()
 		local cwd = vim.fn.getcwd()
 		require("neo-tree.command").execute({
-			toggle = true,
-			position = "left",
+			action = "close",
 			dir = cwd,
 		})
-		local t = {}
-		for i in string.gmatch(cwd, "([^/]+)") do
-			table.insert(t, i)
-		end
-		vim.cmd("silent! bd! " .. t[#t]) -- weird buffer with name of the parent folder was getting created
+		-- local t = {}
+		-- for i in string.gmatch(cwd, "([^/]+)") do
+		-- 	table.insert(t, i)
+		-- end
+		-- vim.cmd("silent! bd! " .. t[#t]) -- weird buffer with name of the parent folder was getting created
 		-- so had to find a way to delete it
 	end,
 })
+vim.o.sessionoptions = "buffers,curdir,localoptions,folds,tabpages,winpos,winsize"
